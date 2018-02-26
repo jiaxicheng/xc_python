@@ -1,0 +1,7 @@
+ipython
+redis
+pandas
+scipy
+matplotlib
+PyYAML
+mysql-connector==2.1.6

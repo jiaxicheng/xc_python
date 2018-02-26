@@ -1,0 +1,39 @@
+# the base image
+FROM python:slim
+
+# node user/uid/gid must matches the host system in order to properly access shared folder in container.
+ARG user=xicheng
+ARG user_uid=1003
+ARG user_gid=1003
+
+RUN set -ex; groupadd -g $user_gid $user  && \
+    useradd -m -g $user_gid -s /bin/bash -d /home/$user -u $user_uid $user 
+
+# install some common softwares when developing codes
+RUN set -ex; apt-get update && \
+    apt-get install -y --no-install-recommends --no-install-suggests \
+      vim                 \
+      netcat-traditional  \
+      iproute2            \
+      curl                \
+      jq                  \
+      && \
+    rm -rf /var/lib/apt/lists/*
+
+# copy files to root folder
+COPY modules.list .bash_aliases .vim .vimrc /root/
+
+# upload the file including a list of python modules
+COPY .bash_aliases .vim .vimrc /home/$user/
+
+# install the python modules
+RUN set -ex ; \
+    pip install --no-cache-dir -r /root/modules.list --upgrade --upgrade-strategy only-if-needed && \
+    rm -rf ~/.cache
+
+# set up container user to run the program
+USER $user
+
+# default command to execute when the container is started, this must be some daemon, otherwise the container exit(0)
+CMD [ "/bin/bash" ]
+

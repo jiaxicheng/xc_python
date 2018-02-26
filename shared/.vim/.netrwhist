@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/xicheng/xicheng/apay/Pentaho-Commissions/Oversea - Daniel'
+let g:netrw_dirhist_2='/home/xicheng/bin/db_sync'
+let g:netrw_dirhist_3='/home/xicheng/xicheng'
+let g:netrw_dirhist_4='/home/xicheng/xicheng/apay'
+let g:netrw_dirhist_5='/home/xicheng/xicheng/Loans/POS'
+let g:netrw_dirhist_6='/data/user/xicheng/test/2/disaster_planning'
+let g:netrw_dirhist_7='/etc'
