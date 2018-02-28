@@ -12,16 +12,15 @@ services:
         user_gid: ${USER_GID:-1003}
     container_name: xc_python
     hostname: xc_py3
+    depends_on:
+      - xc_redis
+      - xc_mysql
     networks:
       xcnet:
-        ipv4_address: 192.168.50.2
-        aliases: [ oceanside ]
     working_dir: /shared
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "${SHARED:-./}:/shared:Z"
-    extra_hosts:
-      - "lexington:192.168.1.25"
     restart: always
     tty: true
   xc_redis:
@@ -30,38 +29,27 @@ services:
     hostname: xc_redis
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
-      - "xc_redis_data:/data:z"
+      - "xc_redis_data:/data"
     networks:
       xcnet:
-        ipv4_address: 192.168.50.3
-        aliases: [ gardencity ]
-    extra_hosts:
-      - "sgrove:192.168.1.23"
-      - "lexington:192.168.1.25"
     restart: always
   xc_mysql:
-    image: mysql:latest
+    image: xc_mysql:5.7
+    build:
+      context: ./
+      dockerfile: Dockerfile-mysql
     container_name: xc_mysql
     hostname: xc_mysql
     env_file:
       - ./mysql.env
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
-      - "xc_mysql_data:/var/lib/mysql:Z"
-      - "../mysql/init.sql:/root/init.sql:ro"
+      - "xc_mysql_data:/var/lib/mysql"
     networks:
       xcnet:
-        ipv4_address: 192.168.50.5
-        aliases: [ hicksvill ]
     restart: always
-#    command: [ "mysql", "<", "/root/init.sql" ]
 networks:
   xcnet:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 192.168.50.0/24
 volumes:
   xc_mysql_data:
   xc_redis_data:
