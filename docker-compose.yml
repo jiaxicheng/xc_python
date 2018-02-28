@@ -24,15 +24,17 @@ services:
     restart: always
     tty: true
   xc_redis:
-    image: redis:latest
+    image: redis:4
     container_name: xc_redis
     hostname: xc_redis
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "xc_redis_data:/data"
+      - "./redis.conf:/usr/local/etc/redis.conf:ro"
     networks:
       xcnet:
     restart: always
+    command: [ "redis-server", "/usr/local/etc/redis.conf" ]
   xc_mysql:
     image: xc_mysql:5.7
     build:
@@ -44,6 +46,7 @@ services:
       - ./mysql.env
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
+      - "./mysql-init.d:/docker-entrypoint-initdb.d:ro"
       - "xc_mysql_data:/var/lib/mysql"
     networks:
       xcnet:
@@ -53,4 +56,3 @@ networks:
 volumes:
   xc_mysql_data:
   xc_redis_data:
-

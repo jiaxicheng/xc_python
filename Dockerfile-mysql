@@ -1,7 +1,5 @@
 FROM mysql:5.7
 
-COPY ./mysql_init.sql /docker-entrypoint-initdb.d/
-
 # add programs that's useful to run mysql, i.e. `less`
 RUN set -ex; \
     apt-get update && \
