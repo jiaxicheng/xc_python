@@ -1,0 +1,9 @@
+vim
+netcat-traditional
+iproute2
+iputils-ping
+curl
+git
+jq
+# tk-dev for matplotlib.pyplot with GUI support
+tk-dev

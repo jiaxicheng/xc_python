@@ -9,27 +9,17 @@ ARG user_gid=1003
 RUN set -ex; groupadd -g $user_gid $user  && \
     useradd -m -g $user_gid -s /bin/bash -d /home/$user -u $user_uid $user 
 
-# install some common softwares when developing codes
-# tk-dev for matplotlib.pyplot big package with GUI support
-RUN set -ex; apt-get update && \
-    apt-get install -y --no-install-recommends --no-install-suggests \
-      vim                 \
-      netcat-traditional  \
-      iproute2            \
-      iputils-ping        \
-      curl                \
-      git                 \
-      jq                  \
-      tk-dev              \
-      && \
-    rm -rf /var/lib/apt/lists/*
+# upload files including a list of python modules/useful Debian packages
+COPY modules.lst packages.lst /root/
 
-# upload the file including a list of python modules
-COPY modules.list /root/
+# install some common softwares when developing codes
+RUN set -ex; apt-get update && \
+    xargs -a <(sed '/^ *#/d' /shared/packages.lst) apt-get install -y --no-install-recommends --no-install-suggests  && \
+    rm -rf /var/lib/apt/lists/*
 
 # install the python modules
 RUN set -ex ; \
-    pip install --no-cache-dir -r /root/modules.list --upgrade --upgrade-strategy only-if-needed && \
+    pip install --no-cache-dir -r /root/modules.lst --upgrade --upgrade-strategy only-if-needed && \
     rm -rf ~/.cache
 
 # copy user config-files to $user/root account
