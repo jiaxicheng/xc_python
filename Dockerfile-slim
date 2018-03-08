@@ -14,7 +14,7 @@ COPY modules.lst packages.lst /root/
 
 # install some common softwares when developing codes
 RUN set -ex; apt-get update && \
-    xargs -a <(sed '/^ *#/d' /shared/packages.lst) apt-get install -y --no-install-recommends --no-install-suggests  && \
+    sed '/^ *#/d' /root/packages.lst | xargs apt-get install -y --no-install-recommends --no-install-suggests  && \
     rm -rf /var/lib/apt/lists/*
 
 # install the python modules
