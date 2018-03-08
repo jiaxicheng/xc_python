@@ -1,7 +1,7 @@
 version: '3.2'
 
 services:
-  xc_python3: 
+  python3: 
     image: xc_python3:slim
     build: 
       context: ./
@@ -13,8 +13,8 @@ services:
     container_name: xc_python
     hostname: xc_py3
     depends_on:
-      - xc_redis
-      - xc_mysql
+      - redis
+      - mysql
     networks:
       xcnet:
     working_dir: /shared
@@ -23,10 +23,8 @@ services:
       - "${SHARED:-./}:/shared:Z"
     restart: always
     tty: true
-  xc_redis:
+  redis:
     image: redis:4
-    container_name: xc_redis
-    hostname: xc_redis
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "xc_redis_data:/data"
@@ -35,18 +33,18 @@ services:
       xcnet:
     restart: always
     command: [ "redis-server", "/usr/local/etc/redis.conf" ]
-  xc_mysql:
+  mysql:
     image: xc_mysql:5.7
     build:
       context: ./
       dockerfile: Dockerfile-mysql
     container_name: xc_mysql
-    hostname: xc_mysql
     env_file:
       - ./mysql.env
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
-      - "./mysql-init.d:/docker-entrypoint-initdb.d:ro"
+      - "./mysql.init.d:/docker-entrypoint-initdb.d:ro"
+      - "./mysql.conf.d:/etc/mysql/mysql.conf.d:ro"
       - "xc_mysql_data:/var/lib/mysql"
     networks:
       xcnet:
