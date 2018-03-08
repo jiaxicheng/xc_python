@@ -21,6 +21,8 @@ services:
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "${SHARED:-./}:/shared:Z"
+      - "./home:/home/${USER}:z"
+      - "./home:/root:z"
     restart: always
     tty: true
   redis:

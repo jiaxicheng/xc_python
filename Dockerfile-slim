@@ -22,15 +22,6 @@ RUN set -ex ; \
     pip install --no-cache-dir -r /root/modules.lst --upgrade --upgrade-strategy only-if-needed && \
     rm -rf ~/.cache
 
-# copy user config-files to $user/root account
-COPY .bash_aliases .vimrc /root/
-COPY .vim /root/.vim/
-COPY .bash_aliases .vimrc /home/$user/
-COPY .vim /home/$user/.vim/
-
-# adjust the permission of user config files
-RUN chown -R xicheng:xicheng /home/$user/.bash_aliases /home/$user/.vimrc
-
 # set up container user to run the program
 USER $user
 
