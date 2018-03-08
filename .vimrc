@@ -1,5 +1,6 @@
 "filetype plugin on
 syntax on
+set tabstop=2
 
 "au syntax python so /usr/share/vim/vim74/syntax/python.vim
 "au BufNewFile,BufRead *.py set ft=python

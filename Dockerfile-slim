@@ -10,27 +10,36 @@ RUN set -ex; groupadd -g $user_gid $user  && \
     useradd -m -g $user_gid -s /bin/bash -d /home/$user -u $user_uid $user 
 
 # install some common softwares when developing codes
+# tk-dev for matplotlib.pyplot big package with GUI support
 RUN set -ex; apt-get update && \
     apt-get install -y --no-install-recommends --no-install-suggests \
       vim                 \
       netcat-traditional  \
       iproute2            \
+      iputils-ping        \
       curl                \
       git                 \
       jq                  \
+      tk-dev              \
       && \
     rm -rf /var/lib/apt/lists/*
 
-# copy files to root folder
-COPY modules.list .bash_aliases .vim .vimrc /root/
-
 # upload the file including a list of python modules
-COPY .bash_aliases .vim .vimrc /home/$user/
+COPY modules.list /root/
 
 # install the python modules
 RUN set -ex ; \
     pip install --no-cache-dir -r /root/modules.list --upgrade --upgrade-strategy only-if-needed && \
     rm -rf ~/.cache
+
+# copy user config-files to $user/root account
+COPY .bash_aliases .vimrc /root/
+COPY .vim /root/.vim/
+COPY .bash_aliases .vimrc /home/$user/
+COPY .vim /home/$user/.vim/
+
+# adjust the permission of user config files
+RUN chown -R xicheng:xicheng /home/$user/.bash_aliases /home/$user/.vimrc
 
 # set up container user to run the program
 USER $user
