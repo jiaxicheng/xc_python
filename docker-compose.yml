@@ -20,11 +20,14 @@ services:
     working_dir: /shared
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
+      - "/tmp/.X11-unix:/tmp/.X11-unix:Z"
       - "${SHARED:-./}:/shared:Z"
-      - "./home:/home/${USER}:z"
-      - "./home:/root:z"
+      - "./home:/home/${USER}:Z"
+    environment:
+      - DISPLAY
     restart: always
     tty: true
+    command: "$XAUTH && bash"
   redis:
     image: redis:4
     volumes:

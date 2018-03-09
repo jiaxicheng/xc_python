@@ -7,3 +7,4 @@ git
 jq
 # tk-dev for matplotlib.pyplot with GUI support
 tk-dev
+xauth
