@@ -12,3 +12,5 @@ alias cdpp='cd /usr/local/lib/python3.6/site-packages'
 n1() { nc -w1 ${2:-localhost} ${1:?"Usage: n1 port host"} </dev/null >/dev/null 2>&1 && echo "success($?)" || echo "failure($?)"; }
 
 export PYTHONPATH=/shared/python3/modules:$PYTHONPATH
+
+[[ -f ~/.xauthrc ]] && . ~/.xauthrc
