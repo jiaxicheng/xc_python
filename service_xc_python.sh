@@ -14,7 +14,7 @@ USAGE="Usage:
 SHARED=/home/xicheng/my_code/python
 
 # process the command options
-while getopts "hd" opt; do
+while getopts "hd:" opt; do
   case $opt in
     h)
       echo "$USAGE"; exit 0
@@ -32,6 +32,9 @@ shift $((OPTIND-1))
 
 # SHARED folder supplied by -d argument or default to '/home/xicheng/my_code/python'
 export SHARED
+
+echo $1, $2
+exit
 
 # set username, user_uid and user_gid the same as the owner of the SHARED folder
 export USER=$(stat -c "%U" "$SHARED")
