@@ -1,4 +1,4 @@
-# Python3 Data Modules testing #
+# Python3 Data Modules #
 The target of this project is to set up a docker platform to run and test Python with several data modules:
 * Python data modules: pandas + numpy
 * Python presentation module: matplotlib
@@ -8,17 +8,20 @@ The target of this project is to set up a docker platform to run and test Python
 
 
 ## Added Jupiter Notebook ##
-### Mar 16, 2018###
+### Mar 16, 2018 ###
 - Added Jupitor notebook with listening port: 9999 bind to the host@127.0.0.1
 - Added docker-entrypoint.sh (Dockerfile) to start the Jupyter notebook server
 - Added ENV (docker-compose.yml) to specify notebook-dir and logs folder at runtime
 
-> jupyter notebook --ip=0.0.0.0 --port=9999 --no-browser --notebook-dir="$shared" >>/home/$user/logs/jupyter-notebook.log 2>&1
+> jupyter notebook --ip=0.0.0.0 --port=9999 --no-browser --notebook-dir="$shared" \
+>                  >>/home/$user/logs/jupyter-notebook.log 2>&1
+
 
 ## Added xauth for matplotlib ##
 ### Mar 9, 2016 ###
 - Added xauth to make matplotlib work properly through the container
 - xauth can be run on command directive (docker-compose.yml) or in the server_xc_python.sh to add into .xauth.rc and invoke through .bash_aliases
+
 
 ## Minor adjustments ##
 ### Mar 8, 2016 ###
@@ -27,10 +30,11 @@ The target of this project is to set up a docker platform to run and test Python
 
 
 ## Added SQL script to init MySQL docker container ##
-### Feb 28, 2018###
+### Feb 28, 2018 ###
 - Added SQL script (docker-compose.yml) to create regular users databases and grant permissions at container start time
 - Added myapp.conf (docker-compose.yml) to /etc/mysql/mysql.conf.d to set up MySQL server
 - MySQL container is now xc_mysql:5.7 based on MySQL:5.7 and added a command line: `less` useful for SQL queries with multiple columes
+
 
 ## Added 3 docker container for testing suite ##
 ### Feb 26, 2018 ###
