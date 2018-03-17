@@ -26,14 +26,8 @@ RUN set -ex ; \
     pip install --no-cache-dir -r /root/modules.lst --upgrade --upgrade-strategy only-if-needed && \
     rm -rf ~/.cache
 
-# copy entrypoint.sh
-COPY ./docker-entrypoint.sh /usr/local/bin/
-
 # set up container user to run the program
 USER $user
-
-# set jupyter notebook as entrypoint, use port:9999 
-ENTRYPOINT /usr/local/bin/docker-entrypoint.sh "$user" "$notebook_dir"
 
 # default command to execute at run time
 CMD [ "/bin/bash" ]

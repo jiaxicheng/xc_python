@@ -33,9 +33,6 @@ shift $((OPTIND-1))
 # SHARED folder supplied by -d argument or default to '/home/xicheng/my_code/python'
 export SHARED
 
-echo $1, $2
-exit
-
 # set username, user_uid and user_gid the same as the owner of the SHARED folder
 export USER=$(stat -c "%U" "$SHARED")
 export USER_UID=$(stat -c "%u" "$SHARED")

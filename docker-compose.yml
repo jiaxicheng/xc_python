@@ -17,8 +17,6 @@ services:
       - mysql
     networks:
       xcnet:
-    ports:
-      - "127.0.0.1:9999:9999"
     working_dir: /shared
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
@@ -27,9 +25,8 @@ services:
       - "./home:/home/${USER}:Z"
     environment:
       - DISPLAY
-      - "user=${USER:-xicheng}"
-      - "notebook_dir=/shared"
     restart: always
+    tty: true
   redis:
     image: redis:4
     volumes:
