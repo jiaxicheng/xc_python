@@ -1,0 +1,12 @@
+ipython
+redis
+pandas
+scipy
+matplotlib
+PyYAML
+SQLAlchemy
+Cython
+xarray
+xlrd 
+xlwt
+mysql-connector==2.1.6
