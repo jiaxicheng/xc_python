@@ -39,10 +39,10 @@ export USER_UID=$(stat -c "%u" "$SHARED")
 export USER_GID=$(stat -c "%g" "$SHARED")
 
 # retrieve one of the xauth cookie fromt he host server
-#export XAUTH=$(xauth list | awk -v d=$DISPLAY '$1 ~ d{print "xauth add",d,$2,$3; exit}')
+export XAUTH=$(xauth list | awk -v d=$DISPLAY '$1 ~ d{print "xauth add",d,$2,$3; exit}')
 
 # add xauth cookie into the file ~/.xauthrc <-- moved the flow to docker-compose.yml
-#echo "$XAUTH" >home/.xauthrc
+echo "$XAUTH" >home/.xauthrc
 
 # wrapper for docker-compose command with required environments for the services
 case $1 in
