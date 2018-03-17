@@ -21,6 +21,8 @@ jupyter notebook --ip=0.0.0.0 --port=9999 --no-browser --notebook-dir="$shared" 
                  >>/home/$user/logs/jupyter-notebook.log 2>&1
 ```
 
+**Note:** when using Jupiter notebook, there is no need to install tkdev and xauth which is only useful running ipython CLI.
+
 ## Added xauth for matplotlib ##
 On Mar 9, 2016
 - Added xauth to make matplotlib work properly through the container
