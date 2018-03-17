@@ -33,7 +33,7 @@ COPY ./docker-entrypoint.sh /usr/local/bin/
 USER $user
 
 # set jupyter notebook as entrypoint, use port:9999 
-ENTRYPOINT /usr/local/bin/docker-entrypoint.sh "$user" "$notebook_dir"
+ENTRYPOINT /usr/local/bin/docker-entrypoint.sh "$notebook_dir"
 
 # default command to execute at run time
 CMD [ "/bin/bash" ]
