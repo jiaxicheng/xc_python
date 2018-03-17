@@ -27,7 +27,6 @@ services:
       - "./home:/home/${USER}:Z"
     environment:
       - DISPLAY
-      - "user=${USER:-xicheng}"
       - "notebook_dir=/shared"
     restart: always
   redis:
