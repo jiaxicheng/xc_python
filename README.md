@@ -9,6 +9,15 @@ The target of this project is to set up a docker platform to run and test Python
 * [X] GlusterFS
 * [ ] multi-host and failover test
 
+## Split project into two branches ##
+On Mar 17, 2018
+- Added two branches to the current code:
+  - xauth: based on tkdev library and xauth, need X-support and DISPLAY
+  - jupyter: based on Jupyter node and no tkdev library and xauth are required - Editing handled on web.
+  - master branch is a mixed of two, since each has cons and pros.
+
+
+**Note:** when using Jupiter notebook, there is no need to install tkdev and xauth which is only useful running ipython CLI.
 
 ## Added Jupiter Notebook ##
 On Mar 16, 2018
@@ -20,13 +29,6 @@ On Mar 16, 2018
 jupyter notebook --ip=0.0.0.0 --port=9999 --no-browser --notebook-dir="$shared" \
                  >>/home/$user/logs/jupyter-notebook.log 2>&1
 ```
-
-- Added two branches to the current code:
-  - xauth: based on tkdev library and xauth, need X-support and DISPLAY
-  - jupyter: based on Jupyter node and no tkdev library and xauth are required - Editing handled on web.
-  - master branch is a mixed of two, since each has cons and pros.
-
-**Note:** when using Jupiter notebook, there is no need to install tkdev and xauth which is only useful running ipython CLI.
 
 ## Added xauth for matplotlib ##
 On Mar 9, 2016
