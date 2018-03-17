@@ -4,6 +4,5 @@ pandas
 matplotlib
 PyYAML
 SQLAlchemy
-flask
 mysql-connector==2.1.6
 jupyter

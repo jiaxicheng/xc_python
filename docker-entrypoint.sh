@@ -1,6 +1,5 @@
 #!/usr/bin/env sh
 
-user=${1:-xicheng}
 shared=${2:-/shared}
 
 mkdir -p ~/.jupyter ~/logs
