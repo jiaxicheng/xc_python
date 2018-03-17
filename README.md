@@ -20,6 +20,11 @@ On Mar 16, 2018
 jupyter notebook --ip=0.0.0.0 --port=9999 --no-browser --notebook-dir="$shared" \
                  >>/home/$user/logs/jupyter-notebook.log 2>&1
 ```
+- Added two branches to the current code:
+  - xauth: based on tkdev library and xauth, need X-support and DISPLAY
+  - jupyter: based on Jupyter node and no tkdev library and xauth are required - Editing handled on web.
+  - master branch is a mixed of two, since each has cons and pros.
+
 
 ## Added xauth for matplotlib ##
 On Mar 9, 2016
