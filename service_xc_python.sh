@@ -41,6 +41,7 @@ if [[ $1 =~ ^(up|build) ]]; then
     export USER_UID=$(stat -c "%u" "$SHARED")
     export USER_GID=$(stat -c "%g" "$SHARED")
 
+    # setup caotainer xauth cookie and DISPLAY based on login
     . xauth.init.sh
 
 fi
