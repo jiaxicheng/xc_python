@@ -11,7 +11,7 @@ The target of this project is to set up a docker platform to run and test Python
 
 ## xauth with XSOCK and X11Forwarding
 On Mar 18, 2018
-- Added a file [xautn.init.sh](./xautn.init.sh) to handle two different situations
+- Added a file [xautn.init.sh](./xauth.init.sh) to handle two different situations
   - using XSOCK: when the docker host on a systen with X-Win and you want your graphs rendered
     to that DISPLAY. In this case, you will find a socket file under the folder /tmp/.X11-unix/X<number>
     where <number> is your current display_number
