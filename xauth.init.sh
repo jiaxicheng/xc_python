@@ -29,6 +29,14 @@ Prerequisites when using X11Forwarding:
   <accept/>
 </rule>
 
+or run the following command (Centos7)
+
+sudo firewall-cmd --permanent --zone=public --add-rich-rule='
+     rule family="ipv4" destination address="172.17.0.0/16" port protocol="tcp" port="6010-6020" accept'
+
+Note: this firewall rule could cover at most 10 remote DISPLAYs running on the same docker host, adjust 
+      the range based on your own needs
+
 Reference links: 
 [1] https://stackoverflow.com/questions/48235040/run-x-application-in-a-docker-container-reliably-on-a-server-connected-via-ssh-w
 [2] https://stackoverflow.com/questions/16296753/can-you-run-gui-apps-in-a-docker-container
