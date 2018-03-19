@@ -2,29 +2,23 @@ version: '3.2'
 
 services:
   python3: 
-    image: xc_python3:slim
+    image: xc_python3:xauth
     build: 
       context: ./
-      dockerfile: Dockerfile-slim
+      dockerfile: Dockerfile-xauth
       args:
         user: ${USER:-xicheng}
         user_uid: ${USER_UID:-1003}
         user_gid: ${USER_GID:-1003}
-    container_name: xc_python
     hostname: xc_py3
-    depends_on:
-      - redis
-      - mysql
     networks:
       xcnet:
     working_dir: /shared
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
-      - "/tmp/.X11-unix:/tmp/.X11-unix:Z"
-      - "${SHARED:-./}:/shared:Z"
-      - "./home:/home/${USER}:Z"
-    environment:
-      - DISPLAY
+      - "${SHARED:-./}:/shared:z"
+      - "./home:/home/${USER}:z"
+      - "/tmp/.X11-unix:/tmp/.X11-unix:z"
     restart: always
     tty: true
   redis:
@@ -42,7 +36,6 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile-mysql
-    container_name: xc_mysql
     env_file:
       - ./mysql.env
     volumes:
