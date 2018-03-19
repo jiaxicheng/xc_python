@@ -42,8 +42,9 @@ Reference links:
 [2] https://stackoverflow.com/questions/16296753/can-you-run-gui-apps-in-a-docker-container
 [3] http://studioware.com/wikislax/index.php?title=X11_over_the_network
 
-Note: 
-* If `ssh -X` is not working, try `ssh -Y`
+Notes:
+* if you received the error "X Error of failed request: BadAccess (attempt to access private resource denied)"
+  and you were using `ssh -X` to access the host, try switch to `ssh -Y`
 
 DOC
 
