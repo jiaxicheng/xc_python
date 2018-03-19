@@ -12,8 +12,8 @@ The target of this project is to set up a docker platform to run and test Python
 ## Split project into two branches ##
 On Mar 17, 2018
 - Added two branches to the current code:
-  - [xauth](./tree/xauth): based on tkdev library and xauth, need X-support and DISPLAY
-  - [jupyter](./tree/jupyter): based on Jupyter node and no tkdev library and xauth are required - Editing handled on web.
+  - [xauth](../xauth): based on tkdev library and xauth, need X-support and DISPLAY
+  - [jupyter](../jupyter): based on Jupyter node and no tkdev library and xauth are required - Editing handled on web.
   - master branch is a mixed of two, since each has cons and pros.
 
 
