@@ -1,13 +1,5 @@
 # Python3 Data Modules #
-The target of this project is to set up a docker platform to run and test Python with several data modules:
-* [x] ipython 
-* [x] Python data modules: pandas + numpy
-* [x] Python presentation module: matplotlib
-* [x] MySQL database
-* [x] Redis key-value caching store
-* [x] Jupyter notebook
-* [X] GlusterFS
-* [ ] multi-host and failover test
+Branch to use `xauth` and its related tools to show Python plots
 
 ## xauth with XSOCK and X11Forwarding
 On Mar 18, 2018
