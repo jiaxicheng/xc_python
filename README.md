@@ -1,14 +1,5 @@
 # Python3 Data Modules #
-The target of this project is to set up a docker platform to run and test Python with several data modules:
-* [x] ipython 
-* [x] Python data modules: pandas + numpy
-* [x] Python presentation module: matplotlib
-* [x] MySQL database
-* [x] Redis key-value caching store
-* [x] Jupyter notebook
-* [X] GlusterFS
-* [ ] multi-host and failover test
-
+Branch based on Jupyter notebook for Python GUI displays.
 
 ## Added Jupiter Notebook ##
 On Mar 16, 2018
