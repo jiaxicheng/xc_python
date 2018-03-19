@@ -21,7 +21,6 @@ while getopts "hd:" opt; do
       ;;
     d)
       SHARED=$2
-      [[ -d "$SHARED" ]] || { echo "the folder '$SHARED' does not exist"; exit 1; }
       ;;
   esac
 done
@@ -29,6 +28,9 @@ shift $((OPTIND-1))
 
 # action must be one of the pre-defined OPTS
 [[ $1 =~ ^$regex$ ]] || { echo "$USAGE"; exit; }
+
+# initial shared folder must exist to obtain the user_id/user_gid
+[[ -d "$SHARED" ]] || { echo "the folder '$SHARED' does not exist"; exit 1; }
 
 # SHARED folder supplied by -d argument or default to '/home/xicheng/my_code/python'
 export SHARED
