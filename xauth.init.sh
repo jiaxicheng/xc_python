@@ -48,6 +48,10 @@ Notes:
 
 DOC
 
+# If DISPLAY is empty, the xauth should be executed at each shell login.
+# This happens when the service is started on a docker host w/o X-win
+[[ -z $DISPLAY ]] && exit
+
 # if DISPLAY is using XSOCK, then use XSOCK
 # else container :display based on the docker0 IP
 if [[ $DISPLAY =~ ^: ]]; then
