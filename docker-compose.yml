@@ -10,11 +10,7 @@ services:
         user: ${USER:-xicheng}
         user_uid: ${USER_UID:-1003}
         user_gid: ${USER_GID:-1003}
-    container_name: xc_python
     hostname: xc_py3
-    depends_on:
-      - redis
-      - mysql
     networks:
       xcnet:
     ports:
@@ -26,7 +22,6 @@ services:
       - "${SHARED:-./}:/shared:Z"
       - "./home:/home/${USER}:Z"
     environment:
-      - DISPLAY
       - "notebook_dir=/shared"
     restart: always
   redis:
@@ -44,7 +39,6 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile-mysql
-    container_name: xc_mysql
     env_file:
       - ./mysql.env
     volumes:

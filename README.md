@@ -12,9 +12,9 @@ The target of this project is to set up a docker platform to run and test Python
 ## Split project into two branches ##
 On Mar 17, 2018
 - Added two branches to the current code:
-  - xauth: based on tkdev library and xauth, need X-support and DISPLAY
-  - jupyter: based on Jupyter node and no tkdev library and xauth are required - Editing handled on web.
-  - master branch is a mixed of two, since each has cons and pros.
+  - xauth: based on tkdev library and xauth, need X-support and DISPLAY. images(545MB)
+  - jupyter: based on Jupyter node and no tkdev library and xauth are required - Editing handled on web. image(537MB)
+  - master branch is a mixed of two, since each has cons and pros. image (605MB)
 
 
 **Note:** when using Jupiter notebook, there is no need to install tkdev and xauth which is only useful running ipython CLI.
