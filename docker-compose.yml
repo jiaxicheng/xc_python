@@ -2,10 +2,10 @@ version: '3.2'
 
 services:
   python3: 
-    image: xc_python3:slim
+    image: xc_python3:master
     build: 
       context: ./
-      dockerfile: Dockerfile-slim
+      dockerfile: Dockerfile-master
       args:
         user: ${USER:-xicheng}
         user_uid: ${USER_UID:-1003}
@@ -18,9 +18,9 @@ services:
     working_dir: /shared
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
-      - "/tmp/.X11-unix:/tmp/.X11-unix:Z"
-      - "${SHARED:-./}:/shared:Z"
-      - "./home:/home/${USER}:Z"
+      - "/tmp/.X11-unix:/tmp/.X11-unix:z"
+      - "${SHARED:-./}:/shared:z"
+      - "./home:/home/${USER}:z"
     environment:
       - "notebook_dir=/shared"
     restart: always

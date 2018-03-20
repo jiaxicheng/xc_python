@@ -21,28 +21,30 @@ while getopts "hd:" opt; do
       ;;
     d)
       SHARED=$2
-      [[ -d "$SHARED" ]] || { echo "the folder '$SHARED' does not exist"; exit 1; }
       ;;
   esac
 done
 shift $((OPTIND-1))
 
+[[ -d "$SHARED" ]] || { echo "the folder '$SHARED' does not exist"; exit 1; }
+
 # action must be one of the pre-defined OPTS
+# export environments when build and run the applications
 [[ $1 =~ ^$regex$ ]] || { echo "$USAGE"; exit; }
 
-# SHARED folder supplied by -d argument or default to '/home/xicheng/my_code/python'
-export SHARED
+if [[ $1 =~ ^(up|build) ]]; then
+    # SHARED folder supplied by -d argument or default to '/home/xicheng/my_code/python'
+    export SHARED
 
-# set username, user_uid and user_gid the same as the owner of the SHARED folder
-export USER=$(stat -c "%U" "$SHARED")
-export USER_UID=$(stat -c "%u" "$SHARED")
-export USER_GID=$(stat -c "%g" "$SHARED")
+    # set username, user_uid and user_gid the same as the owner of the SHARED folder
+    export USER=$(stat -c "%U" "$SHARED")
+    export USER_UID=$(stat -c "%u" "$SHARED")
+    export USER_GID=$(stat -c "%g" "$SHARED")
 
-# retrieve one of the xauth cookie fromt he host server
-export XAUTH=$(xauth list | awk -v d=$DISPLAY '$1 ~ d{print "xauth add",d,$2,$3; exit}')
+    # setup container xauth cookie and DISPLAY based on login
+    . xauth.init.sh
 
-# add xauth cookie into the file ~/.xauthrc <-- moved the flow to docker-compose.yml
-echo "$XAUTH" >home/.xauthrc
+fi
 
 # wrapper for docker-compose command with required environments for the services
 case $1 in
