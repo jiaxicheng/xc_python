@@ -9,40 +9,66 @@ in container's ~/.bashrc file at build time does not solve this issue.
 To move this to your host's ~/.bashrc file, make sure to change the $BASE_DIR 
 to your project folder containing this `xauth.init.sh` file 
 
-Prerequisites:
-(1) /etc/ssh/sshd_config    adjusted the following:
- X11UseLocalhost no
-(2) firewalld, need to add the following rule:
+DISPLAYi s in the format:
+
+     <host>:<display-number>
+
+Prerequisites when using XSOCK:
+(1) DISPLAY <host> should be EMPTY or the container-ip, since the
+    container-ip is dynamic, use `:<display-number>` 
+(2) /tmp/.X11-unix should be mounted to the container (writable)
+
+Prerequisites when using X11Forwarding:
+(1) DISPLAY <host> should be the docker0 bridge IP
+(2) in the file '/etc/ssh/sshd_config', adjusted the following (default is 'yes'):
+   X11UseLocalhost no
+(3) firewalld, need to add the following rule:
 <rule family="ipv4">
   <destination address="172.17.0.0/16"/>
   <port protocol="tcp" port="6010-6020" />
   <accept/>
 </rule>
 
+or run the following command (Centos7)
+
+sudo firewall-cmd --permanent --zone=public --add-rich-rule='
+     rule family="ipv4" destination address="172.17.0.0/16" port protocol="tcp" port="6010-6020" accept'
+
+Note: this firewall rule could cover at most 10 remote DISPLAYs running on the same docker host, adjust 
+      the range based on your own needs
+
 Reference links: 
 [1] https://stackoverflow.com/questions/48235040/run-x-application-in-a-docker-container-reliably-on-a-server-connected-via-ssh-w
 [2] https://stackoverflow.com/questions/16296753/can-you-run-gui-apps-in-a-docker-container
 [3] http://studioware.com/wikislax/index.php?title=X11_over_the_network
 
+Notes:
+* if you received the error "X Error of failed request: BadAccess (attempt to access private resource denied)"
+  and you were using `ssh -X` to access the host, try switch to `ssh -Y`
+
 DOC
 
-BASE_DIR=./
-xauthrc_file=$BASE_DIR/home/.xauthrc
+# if DISPLAY is using XSOCK, then use XSOCK
+# else container :display based on the docker0 IP
+if [[ $DISPLAY =~ ^: ]]; then
+  DISPLAY0=$DISPLAY
+else
+  docker0_ip=172.17.0.1
+  DISPLAY0=$docker0_ip:${DISPLAY#*:}
+fi
 
-XAUTH_FILE=/tmp/.X11-unix/.docker.xauth.$(id -u) 
-docker0_ip=172.17.0.1
-touch $XAUTH_FILE
+# set up the .Xauthority file
+XAUTH_FILE=home/.Xauthority 
+touch $XAUTH_FILE && chmod 700 $XAUTH_FILE
+
+# Add the DISPLAY cookie into the XAUTHORITY file
 # the sed 's/^..../ffff/' is to set the authentication family to 'FamilyWild' so that
-# the host name can be ignored. in this script we use the docker0 IP which makes the
-# cookie more readable
-#xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH_FILE nmerge -
-xauth -f $XAUTH_FILE add $docker0_ip:${DISPLAY#*:} . $(xauth list $DISPLAY | awk '{print $NF}')
-
-chmod 700 $XAUTH_FILE
+# the host name can be ignored, see Reference-[2] 
+xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH_FILE nmerge -
 
 # this .xauthrc file will be source'd by the container shell
+BASE_DIR=.
+xauthrc_file=$BASE_DIR/home/.xauthrc
 echo "
-export DISPLAY=$docker0_ip:${DISPLAY#*:}
-export XAUTHORITY=$XAUTH_FILE
+export DISPLAY=$DISPLAY0
 ">$xauthrc_file
-
