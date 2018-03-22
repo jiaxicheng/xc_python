@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 : <<'DOC'
 Xicheng Jia Spring 2018 @ Valley Stream
 
