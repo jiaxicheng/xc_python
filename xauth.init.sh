@@ -1,4 +1,4 @@
-##!/usr/bin/bash
+#!/usr/bin/env bash
 : <<'DOC'
 Xicheng Jia Spring 2018 @ Valley Stream
 
@@ -9,7 +9,7 @@ in container's ~/.bashrc file at build time does not solve this issue.
 To move this to your host's ~/.bashrc file, make sure to change the $BASE_DIR 
 to your project folder containing this `xauth.init.sh` file 
 
-DISPLAYi s in the format:
+DISPLAY is in the format:
 
      <host>:<display-number>
 
