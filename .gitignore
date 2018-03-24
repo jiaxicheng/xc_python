@@ -1,0 +1,15 @@
+bkup/
+logs/
+.cache/
+.jupyter/
+.local/
+mysql.env
+mysql_init.sql
+.Xauthority
+.bash_history
+.gitconfig
+.ipython
+.python_history
+.netrwhist
+.viminfo
+.xauthrc
