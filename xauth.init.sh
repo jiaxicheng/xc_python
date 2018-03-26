@@ -3,11 +3,15 @@
 Xicheng Jia Spring 2018 @ Valley Stream
 
 Ideally, this script should be put in the ~/.bashrc file of the host server.
-this is important when accessing through `ssh -X host` or `ssh -Y host`, since 
-every ssh session opens a new DISPLAY and thus different cookie. Saving this info
-in container's ~/.bashrc file at build time does not solve this issue.
-To move this to your host's ~/.bashrc file, make sure to change the $BASE_DIR 
-to your project folder containing this `xauth.init.sh` file 
+
+When accessing through `ssh -X host` or `ssh -Y host`, the DISPLAY and magic cookie
+will vary on every ssh session. Saving this info at container's build time will have 
+a problem. To solve this problem, the following 2 lines of bash code can be appended 
+to your ~/.bashrc on the host server so that the new session info can be updated into 
+the container's shell accordingly:
+
+PROJECT_ROOT=~/my_projects/xc_python/master
+[[ -f $PROJECT_ROOT/xauth.init.sh ]] && $PROJECT_ROOT/xauth.init.sh
 
 DISPLAY is in the format:
 
@@ -48,8 +52,9 @@ Notes:
 
 DOC
 
-## cd to the project root-folder
-cd $(cd ${0%/*}; pwd -P)
+## get and cd to the project root-folder
+PROJECT_ROOT=$(cd ${0%/*}; pwd -P)
+cd "$PROJECT_ROOT"
 
 # If DISPLAY is empty, the xauth should be executed at each shell login.
 # This happens when the service is started on a docker host w/o X-win
@@ -74,8 +79,7 @@ touch $XAUTH_FILE && chmod 700 $XAUTH_FILE
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH_FILE nmerge -
 
 # this .xauthrc file will be source'd by the container shell
-BASE_DIR=.
-xauthrc_file=$BASE_DIR/home/.xauthrc
+xauthrc_file=home/.xauthrc
 echo "
 export DISPLAY=$DISPLAY0
 ">$xauthrc_file
