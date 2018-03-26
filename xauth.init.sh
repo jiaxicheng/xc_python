@@ -48,6 +48,9 @@ Notes:
 
 DOC
 
+## cd to the project root-folder
+cd $(cd ${0%/*}; pwd -P)
+
 # If DISPLAY is empty, the xauth should be executed at each shell login.
 # This happens when the service is started on a docker host w/o X-win
 [[ -z $DISPLAY ]] && exit
