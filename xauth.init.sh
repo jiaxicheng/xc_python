@@ -2,8 +2,7 @@
 : <<'DOC'
 Xicheng Jia Spring 2018 @ Valley Stream
 
-Ideally, this script should be put in the ~/.bashrc file of the host server.
-
+Ideally, this script should also be put in the ~/.bashrc file of the host server.
 When accessing through `ssh -X host` or `ssh -Y host`, the DISPLAY and magic cookie
 will vary on every ssh session. Saving this info at container's build time will have 
 a problem. To solve this problem, the following 2 lines of bash code can be appended 
