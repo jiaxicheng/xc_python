@@ -1,0 +1,11 @@
+logs/
+.cache/
+.jupyter/
+.local/
+.Xauthority
+.bash_history
+.gitconfig
+.ipython
+.python_history
+.viminfo
+.xauthrc
