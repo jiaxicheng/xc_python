@@ -10,6 +10,7 @@ On March 27, 2018
   - cedarhurst: 192.168.20.36
   - hewlett: 192.168.20.37
   - gibson: 192.168.20.38
-* Used docker configs on the server config files for redis and mysql
-* Used the internal registry at lexington:5000 to host the customized images
+* Applied docker configs on the server config files for redis and mysql
+* Applied the internal registry at lexington:5000 to host the customized images
+* Set constraint so that the python container run only on the local server @freeport
 

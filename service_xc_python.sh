@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 # pre-defined Action OPTS and regex to match one of the OPTS
-OPTS=(status up down ps start stop)
+OPTS=(status up down ps)
 regex=$(IFS=\|;echo "${OPTS[*]}")
 STACK_NAME=db-cluster
 
@@ -33,7 +33,7 @@ shift $((OPTIND-1))
 # export environments when build and run the applications
 [[ $1 =~ ^$regex$ ]] || { echo "$USAGE"; exit; }
 
-if [[ $1 =~ ^(up|build) ]]; then
+if [[ $1 =~ ^(up) ]]; then
     # SHARED folder supplied by -d argument or default to '/home/xicheng/my_code/python'
     export SHARED
 
@@ -71,10 +71,7 @@ case $1 in
     fi
     ;;
   down)
-    docker stack rm db-cluster
-    ;;
-  stop)
-    docker-compose stop "${@:2}"
+    docker stack rm "$STACK_NAME"
     ;;
   *)
     echo "$USAGE"
