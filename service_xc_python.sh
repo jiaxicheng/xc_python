@@ -1,8 +1,9 @@
 #!/bin/env bash
 
 # pre-defined Action OPTS and regex to match one of the OPTS
-OPTS=(build build-run up down start stop)
+OPTS=(status up down ps start stop)
 regex=$(IFS=\|;echo "${OPTS[*]}")
+STACK_NAME=db-cluster
 
 # usage
 USAGE="Usage:
@@ -36,32 +37,41 @@ if [[ $1 =~ ^(up|build) ]]; then
     # SHARED folder supplied by -d argument or default to '/home/xicheng/my_code/python'
     export SHARED
 
+    # mount point for mysql datadir on top of GlusterFS
+    export GFSROOT=/gfs/mysql
+
     # set username, user_uid and user_gid the same as the owner of the SHARED folder
     export USER=$(stat -c "%U" "$SHARED")
     export USER_UID=$(stat -c "%u" "$SHARED")
     export USER_GID=$(stat -c "%g" "$SHARED")
 
     # setup container xauth cookie and DISPLAY based on login
-    . xauth.init.sh
+    ./xauth.init.sh
 
+    echo "ROOT: $GFSROOT"
 fi
 
 # wrapper for docker-compose command with required environments for the services
 case $1 in
   up)
-    docker-compose up -d "${@:2}"
+    docker stack up -c docker-stack.yml --with-registry-auth "$STACK_NAME"
     ;;
-  start)
-    docker-compose start "${@:2}"
+  status)
+    if [[ $2 = $"$STACK_NAME" ]]; then
+      docker stack ls "${@:3}"
+    else
+      docker service ls "${@:3}"
+    fi
     ;;
-  build-run)
-    docker-compose up -d --build "${@:2}"
-    ;;
-  build)
-    docker-compose build --force-rm "${@:2}"
+  ps)
+    if [[ $2 = $"$STACK_NAME" ]]; then
+      docker stack ps "${@:2}"
+    else
+      docker service ps "${@:2}"
+    fi
     ;;
   down)
-    docker-compose down --remove-orphans 
+    docker stack rm db-cluster
     ;;
   stop)
     docker-compose stop "${@:2}"

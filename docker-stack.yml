@@ -1,0 +1,82 @@
+version: '3.5'
+
+services:
+  python3: # run only on the local server named 'madison'
+    image: lexington:5000/jxc/xc_python3:master
+    hostname: xc_py3
+    working_dir: /shared
+    deploy:
+      placement:
+        constraints:
+          - node.hostname==freeport
+      restart_policy:
+        condition: on-failure
+        max_attempts: 5
+    volumes:
+      - type: bind
+        source: /etc/localtime
+        target: /etc/localtime
+        read_only: true
+      - /tmp/.X11-unix
+      - type: bind
+        source: ${SHARED:-./}
+        target: /shared
+      - type: bind
+        source: $PWD/home
+        target: /home/${USER}
+    environment:
+      - "notebook_dir=/shared"
+    networks:
+      xcnet:
+    ports:
+      - "127.0.0.1:9999:9999"
+  redis:
+    image: redis:4
+    configs:
+      - source: redis_config
+        target: /usr/local/etc/redis.conf
+    volumes:
+      - type: bind
+        source: /etc/localtime
+        target: /etc/localtime
+        read_only: true
+      - "xc_redis_data:/data"
+    networks:
+      xcnet:
+    deploy: 
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    command: [ "redis-server", "/usr/local/etc/redis.conf" ]
+  mysql:
+    image: lexington:5000/jxc/xc_mysql:5.7
+    env_file:
+      - ./mysql.env
+    volumes:
+      - type: bind
+        source: /etc/localtime
+        target: /etc/localtime
+        read_only: true
+      - type: bind
+        source: ${GFSROOT:-./}/mysql.init.d/
+        target: /docker-entrypoint-initdb.d/
+      - type: bind
+        source: ${GFSROOT:-./}/data/
+        target: /var/lib/mysql/
+    networks:
+      xcnet:
+    configs:
+      - source: mysql_config
+        target: /etc/mysql/mysql.conf.d/app.conf
+    deploy:
+      restart_policy:
+        condition: on-failure
+networks:
+  xcnet:
+volumes:
+  xc_redis_data:
+configs:
+  redis_config:
+    file: ./redis.conf
+  mysql_config:
+    file: ./mysql.conf.d/myapp.cnf
