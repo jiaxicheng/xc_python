@@ -2,6 +2,8 @@ logs/
 .cache/
 .jupyter/
 .local/
+mysql.init.d/
+mysql_init.sql
 .Xauthority
 .bash_history
 .gitconfig

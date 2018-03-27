@@ -42,7 +42,7 @@ if [[ $1 =~ ^(up|build) ]]; then
     export USER_GID=$(stat -c "%g" "$SHARED")
 
     # setup container xauth cookie and DISPLAY based on login
-    . xauth.init.sh
+    ./xauth.init.sh
 
 fi
 
