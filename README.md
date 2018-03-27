@@ -6,8 +6,13 @@ The target of this project is to set up a docker platform to run and test Python
 * [x] MySQL database
 * [x] Redis key-value caching store
 * [x] Jupyter notebook
-* [X] GlusterFS
-* [ ] multi-host and failover test
+* [x] GlusterFS
+* [x] multi-host and failover test
+
+## Created the stack branch
+On Mar 27, 2018
+- Added [stack](https://github.com/jiaxicheng/xc_python/tree/stack) branch for the testing environments
+  in a docker swarm and gluster cluster
 
 ## Split project into two branches ##
 On Mar 17, 2018
