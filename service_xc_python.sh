@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 # pre-defined Action OPTS and regex to match one of the OPTS
 OPTS=(status up down ps)
