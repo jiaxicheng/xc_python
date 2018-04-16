@@ -8,20 +8,30 @@ The target of this project is to set up a docker platform to run and test Python
 
 ### Containers ###
 1. python3: based on the official [python:slim](https://hub.docker.com/_/python/)
-2. mysql: based on the official [mysql:5.7](https://hub.docker.com/_/mysql/) with one more bash command `less` 
+   + edit `modules.lst` to add/remove Python modules
+   + edit `packages.lst` to add/remove Debian packages
+2. mysql: based on the official [mysql:5.7](https://hub.docker.com/_/mysql/)
 3. redis: based on the official [redis:4](https://hub.docker.com/_/redis/)
 
 ### Prerequisites: ###
-1. Tested OS: Centos 7.4, Ubuntu 17.10
+1. Tested OS: Centos 7.4, Ubuntu 16.04, 7.10
 2. Tested Docker version: 1.13.1 and 18.03
 ```
-apt-get install docker.io   # Ubuntu
-yum install docker          # centos
+sudo apt install docker.io       # Ubuntu
+sudo yum install docker          # Centos
+sudo systemctl start docker
+sudo systemctl enable docker
 ```
 3. [docker-compose](https://docs.docker.com/compose/install/#install-compose) 
 4. If running X graphics is required under ipython or command lines, then 
 ```
-yum install xauth
+apt install xauth           # Ubuntu
+yum install xauth           # Centos
+```
+5. Make sure the login *user* can run the docker command, i.e. check the group permission of the socket file and then add *user* into that group (docker, dockerroot)
+```
+ls -l /var/run/docker.sock
+usermod -a -G <docker|dockerroot> <user>
 ```
 
 ### Installation: ###
@@ -53,20 +63,15 @@ docker exec -it xc_python_python3_1 jupyter notebook list
 2. set up the firewall between the `host_server` and the docker bridge0, essential for X11Forward to reach docker containers
 ```
 sudo firewall-cmd  --zone=public --add-rich-rule=' rule family="ipv4" destination address="172.17.0.0/16" port protocol="tcp" port="6010-6020" accept'
-sudo firewall-cmd --reload
 
 # below make it persistent over reboot
-sudo firewall-cmd  --zone=public --permanent --add-rich-rule=' rule family="ipv4" destination address="172.17.0.0/16" port protocol="tcp" port="6010-6020" accept
-
+sudo firewall-cmd  --zone=public --permanent --add-rich-rule=' rule family="ipv4" destination address="172.17.0.0/16" port protocol="tcp" port="6010-6020" accept'
 ```
 **Note:**
-+ make sure your network interface is using the correct firewall zone (in example it's `public` zone), you can run the following command to check the active zone and then adjust `public` to whatever zone applies:
-```
-sudo firewall-cmd --get-active-zones
-```
-+ check the file [xauth.init.sh](https://github.com/jiaxicheng/xc_python/blob/master/xauth.init.sh) for more details.
++ Make sure the above rule is added to the **default zone**(`sudo firewall-cmd --get-default-zone`) even if no interface is attached to this zone.
++ For more details, please check the file [xauth.init.sh](https://github.com/jiaxicheng/xc_python/blob/master/xauth.init.sh).
 
-3. set up `sshd` to allow non-localhost X11Forward: in /etc/ssh/sshd_config, adjust `X11UseLocalhost` from `yes` to `no`:
+3. set up `sshd` to allow non-localhost X11Forward: in /etc/ssh/sshd_config: `X11UseLocalhost no`:
 ```
 sudo vi /etc/ssh/sshd_config     
 sudo systemctl reload sshd
@@ -74,11 +79,11 @@ sudo systemctl reload sshd
 
 4. add the following lines into your ~/.bashrc, where PROJECT_ROOT is where the git have saved the project files.
 ```
-echo "
+echo '
 # set up DISPLAY for container using xauth
 PROJECT_ROOT=$HOME/xc_python
 [[ -f $PROJECT_ROOT/xauth.init.sh ]] && $PROJECT_ROOT/xauth.init.sh
-" >>~/.bashrc
+' >>~/.bashrc
 ```
 
 5. logout and then login with the following command:
@@ -89,9 +94,5 @@ docker exec -it xc_python_python3_1 bash
 shared> python ~/gui-test.py
 shared> exit
 ``` 
-**Note:** 
-+ make sure your login user can run the docker, for example, in the group names 'dockerroot' or 'docker'. check the permission of the file `/run/docker.socket`
-+ edit `modules.lst` to add/remove Python modules
-+ edit `packages.lst` to add/remove Debian packages
 
-
+Done and enjoy!
