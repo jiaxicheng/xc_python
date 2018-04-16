@@ -16,13 +16,7 @@ The target of this project is to set up a docker platform to run and test Python
 ### Prerequisites: ###
 1. Tested OS: Centos 7.4, Ubuntu 16.04, 7.10
 2. Tested Docker version: 1.13.1 and 18.03
-```
-sudo apt install docker.io       # Ubuntu
-sudo yum install docker          # Centos
-sudo systemctl start docker
-sudo systemctl enable docker
-```
-3. [docker-compose](https://docs.docker.com/compose/install/#install-compose) 
+3. Install [docker-compose](https://docs.docker.com/compose/install/#install-compose) 
 4. If running X graphics is required under ipython or command lines, then 
 ```
 apt install xauth           # Ubuntu
@@ -33,6 +27,7 @@ yum install xauth           # Centos
 ls -l /var/run/docker.sock
 usermod -a -G <docker|dockerroot> <user>
 ```
+6. Other softwares: firewalld, git, curl
 
 ### Installation: ###
 1. download the package on `host_server` and run the docker services: 
