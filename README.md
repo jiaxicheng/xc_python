@@ -7,27 +7,27 @@ The target of this project is to set up a docker platform to run and test Python
 * [x] MySQL HA/failover with docker swarm
 
 ### Containers ###
-1. python3: based on the official [python:slim](https://hub.docker.com/_/python/)
++ python3: based on the official [python:slim](https://hub.docker.com/_/python/)
    + edit `modules.lst` to add/remove Python modules
    + edit `packages.lst` to add/remove Debian packages
-2. mysql: based on the official [mysql:5.7](https://hub.docker.com/_/mysql/)
-3. redis: based on the official [redis:4](https://hub.docker.com/_/redis/)
++ mysql: based on the official [mysql:5.7](https://hub.docker.com/_/mysql/)
++ redis: based on the official [redis:4](https://hub.docker.com/_/redis/)
 
 ### Prerequisites: ###
-1. Tested OS: Centos 7.4, Ubuntu 16.04, 7.10
-2. Tested Docker version: 1.13.1 and 18.03
-3. Install [docker-compose](https://docs.docker.com/compose/install/#install-compose) 
-4. If running X graphics is required under ipython or command lines, then 
++ Tested OS: Centos 7.4, Ubuntu 16.04, 7.10
++ Tested Docker version: 1.13.1 and 18.03
++ Install [docker-compose](https://docs.docker.com/compose/install/#install-compose) 
++ If running X graphics is required under ipython or command lines, then 
 ```
 apt install xauth           # Ubuntu
 yum install xauth           # Centos
 ```
-5. Make sure the login *user* can run the docker command, i.e. check the group permission of the socket file and then add *user* into that group (docker, dockerroot)
++ Make sure the login *user* can run the docker command, i.e. check the group permission of the socket file and then add *user* into that group (docker, dockerroot)
 ```
 ls -l /var/run/docker.sock
 usermod -a -G <docker|dockerroot> <user>
 ```
-6. Other softwares: firewalld, git, curl
++ Other softwares: firewalld, git, curl
 
 ### Installation: ###
 1. download the package on `host_server` and run the docker services: 
