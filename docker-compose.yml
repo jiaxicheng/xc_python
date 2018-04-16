@@ -29,7 +29,7 @@ services:
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "xc_redis_data:/data"
-      - "./redis.conf:/usr/local/etc/redis.conf:ro"
+      - "./redis.conf:/usr/local/etc/redis.conf:z"
     networks:
       xcnet:
     restart: always
@@ -43,8 +43,8 @@ services:
       - ./mysql.env
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
-      - "./mysql.init.d:/docker-entrypoint-initdb.d:ro"
-      - "./mysql.conf.d:/etc/mysql/mysql.conf.d:ro"
+      - "./mysql.init.d:/docker-entrypoint-initdb.d:z"
+      - "./mysql.conf.d:/etc/mysql/mysql.conf.d:z"
       - "xc_mysql_data:/var/lib/mysql"
     networks:
       xcnet:
