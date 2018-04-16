@@ -32,13 +32,16 @@ Prerequisites when using X11Forwarding:
   <accept/>
 </rule>
 
-or run the following command (Centos7)
+or run the following command (i.e. in Centos7)
 
-sudo firewall-cmd --permanent --zone=public --add-rich-rule='
+sudo firewall-cmd --zone=public --add-rich-rule='
      rule family="ipv4" destination address="172.17.0.0/16" port protocol="tcp" port="6010-6020" accept'
 
-Note: this firewall rule could cover at most 10 remote DISPLAYs running on the same docker host, adjust 
-      the range based on your own needs
+Note: 
+* this command assumed DefaultZone=public in the file '/etc/firewalld/firewalld.conf', please
+  adjust 'public' to whatever returns from running 'firewall-cmd --get-default-zone'
+* this firewall rule could cover at most 10 remote sessions (From Display:10.0 to 20.0) running on the 
+  same docker host, adjust the range based on your own needs
 
 Reference links: 
 [1] https://stackoverflow.com/questions/48235040/run-x-application-in-a-docker-container-reliably-on-a-server-connected-via-ssh-w
