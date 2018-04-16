@@ -6,8 +6,6 @@ The target of this project is to set up a docker platform to run and test Python
 * [x] ipython 
 * [x] Redis key-value caching store
 * [x] MySQL HA/failover with docker swarm
----
-Project [Logs](https://github.com/jiaxicheng/xc_python/blob/master/project_logs.md)
 
 ### Prerequisites: ###
 1. Tested OS: Centos 7.4
