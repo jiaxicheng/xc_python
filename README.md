@@ -17,8 +17,7 @@ yum install xauth
 ```
 
 ### Installation: ###
-1. download the package on `host_server` and run the docker services:
-```
+1. download the package on `host_server` and run the docker services: ```
 git clone https://github.com/jiaxicheng/xc_python
 mkdir -p /data/my_code
 cd xc_python
@@ -27,8 +26,7 @@ cd xc_python
 *Note:* in the python3 container, a user with the same username and uid as the owner of `/data/my_code` on the `host_server` are created, this is to guarantee that user can modify the files both in and out of the container.
 
 2. Using `Jupyter notebook` for testing, do the following:
-   1. from the client-side, set up the ssh-tunnel:
-```
+   1. from the client-side, set up the ssh-tunnel: ```
 ssh -fNL9999:localhost:9999 <user>@<host_server>
 ```
    2. on the `host_server`, run the following and retrieve the token needed for login
