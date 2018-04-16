@@ -9,7 +9,7 @@ The target of this project is to set up a docker platform to run and test Python
 
 ### Prerequisites: ###
 1. Tested OS: Centos 7.4
-2. Docker version: 1.13.1 and 18.03
+2. Tested Docker version: 1.13.1 or 18.03
 3. [docker-compose](https://docs.docker.com/compose/install/#install-compose) 
 4. If running X-graphic is required under ipython or command lines, then 
 ```
