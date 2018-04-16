@@ -14,7 +14,7 @@ The target of this project is to set up a docker platform to run and test Python
 + redis: based on the official [redis:4](https://hub.docker.com/_/redis/)
 
 ### Prerequisites: ###
-+ Tested OS: Centos 7.4, Ubuntu 16.04, 7.10
++ Tested OS: Centos 7.4, Ubuntu 16.04, 17.10
 + Tested Docker version: 1.13.1 and 18.03
 + Install [docker-compose](https://docs.docker.com/compose/install/#install-compose) 
 + If running X graphics is required under ipython or command lines, then 
