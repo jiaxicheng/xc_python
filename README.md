@@ -26,6 +26,7 @@ cd xc_python
 ```
 *Note:* in the python3 container, a user with the same username and uid as the owner of `/data/my_code` on the `host_server` are created, this is to guarantee that user can modify the files both in and out of the container.
 
+---
 #### Using `Jupyter notebook` for testing, do the following: ####
 2. from the client-side, set up the ssh-tunnel: 
 ```
@@ -39,6 +40,7 @@ docker exec -it xc_python_python3_1 jupyter notebook list
 4. on the client-side, open the browser with the link 'http://localhost:9999'
       login with the token shown above
 
+---
 #### Using `xauth` for testing, you can run GUI program on the command lines, i.e. ipython. do the following: ####
 2. set up the firewall between the `host_server` and the docker bridge0, essential for X-forward to reach docker containers
 ```
