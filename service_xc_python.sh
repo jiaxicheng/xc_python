@@ -11,7 +11,7 @@ USAGE="Usage:
 "
 
 # shared folder to save working codes
-SHARED=/home/xicheng/my_code/python
+SHARED=~/my_code
 
 # process the command options
 while getopts "hd:" opt; do
@@ -31,7 +31,7 @@ shift $((OPTIND-1))
 [[ $1 =~ ^$regex$ ]] || { echo "$USAGE"; exit; }
 
 if [[ $1 =~ ^(up|build) ]]; then
-    # SHARED folder supplied by -d argument or default to '/home/xicheng/my_code/python'
+    # SHARED folder supplied by -d argument or default to '$HOME/my_code'
     [[ -d "$SHARED" ]] || { echo "the folder '$SHARED' does not exist"; exit 1; }
     export SHARED
 
