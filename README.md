@@ -7,7 +7,8 @@ The target of this project is to set up a docker platform to run and test Python
 * [x] Redis key-value caching store
 * [x] Jupyter notebook
 * [x] MySQL HA/failover with docker swarm
-Project [Logs] (https://github.com/jiaxicheng/xc_python/blob/master/project_logs.md)
+---
+Project [Logs](https://github.com/jiaxicheng/xc_python/blob/master/project_logs.md)
 
 ### Prerequisites: ###
 1. Tested OS: Centos 7.4
@@ -18,21 +19,22 @@ Project [Logs] (https://github.com/jiaxicheng/xc_python/blob/master/project_logs
 yum install xauth
 ```
 
-### Installation ###
-1. download and install the package on <host>:
+### Installation: ###
+1. download the package on `host_server` and run the docker services:
 ```
 git clone https://github.com/jiaxicheng/xc_python
 mkdir -p /data/my_code
 cd xc_python
 ./service_xc_python.sh  -d /data/my_code up
 ```
+*Note:* in the python3 container, a user with the same username and uid as the owner of `/data/my_code` on the `host_server` are created, this is to guarantee that user can modify the files both in and out of the container.
 
 2. Using `Jupyter notebook` for testing, do the following:
    1. from the client-side, set up the ssh-tunnel:
 ```
-  ssh -fNL9999:localhost:9999 <user>@<host>
+  ssh -fNL9999:localhost:9999 <user>@<host_server>
 ```
-   2. on the <host>, run the following and retrieve the token needed for login
+   2. on the `host_server`, run the following and retrieve the token needed for login
 ```
   docker exec -it xc_python_python3_1 jupyter notebook list
 ```
@@ -40,7 +42,7 @@ cd xc_python
       login with the token shown above
 
 3. Using `xauth` for testing, you can run GUI program on the command lines, i.e. ipython. do the following:
-   1. set up the firewall between the host and the docker bridge0, essential for X-forward to reach docker containers
+   1. set up the firewall between the `host_server` and the docker bridge0, essential for X-forward to reach docker containers
 ```
 firewall-cmd  --zone=public --add-rich-rule=' rule family="ipv4" destination address="172.17.0.0/16" port protocol="tcp" port="6010-6020" accept
 firewall-cmd --reload
@@ -60,7 +62,7 @@ PROJECT_ROOT=$HOME/xc_python
 ```
    4. logout and then login with the following command:
 ```
-ssh -X <host>
+ssh -X <user>@<host_server>
 docker exec -it xc_python_python3_1 bash
 # under container, run the following test
 shared> python ~/gui-test.py
