@@ -10,7 +10,7 @@ The target of this project is to set up a docker platform to run and test Python
 1. Tested OS: Centos 7.4
 2. Tested Docker version: 1.13.1 and 18.03
 3. [docker-compose](https://docs.docker.com/compose/install/#install-compose) 
-4. If running X-graphic is required under ipython or command lines, then 
+4. If running X graphics is required under ipython or command lines, then 
 ```
 yum install xauth
 ```
@@ -26,7 +26,7 @@ cd xc_python
 **Note:** in the python3 container, a user with the same username and uid as the owner of `/data/my_code` on the `host_server` are created, this is to guarantee that user can modify the files both in and out of the container.
 
 ---
-#### Using `Jupyter notebook` for testing, do the following: ####
+#### Using Jupyter notebook for testing, do the following: ####
 2. from the client-side, set up the ssh-tunnel: 
 ```
 ssh -fNL9999:localhost:9999 <user>@<host_server>
@@ -40,8 +40,8 @@ docker exec -it xc_python_python3_1 jupyter notebook list
       login with the token shown above
 
 ---
-#### Using `xauth` for testing, you can run GUI program on the command lines, i.e. ipython. do the following: ####
-2. set up the firewall between the `host_server` and the docker bridge0, essential for X-forward to reach docker containers
+#### Using xauth for testing (i.e. displaying plots directly with ipython) do the following: ####
+2. set up the firewall between the `host_server` and the docker bridge0, essential for X11Forward to reach docker containers
 ```
 firewall-cmd  --zone=public --add-rich-rule=' rule family="ipv4" destination address="172.17.0.0/16" port protocol="tcp" port="6010-6020" accept
 firewall-cmd --reload
