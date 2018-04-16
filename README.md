@@ -1,9 +1,8 @@
 # Python3 Data Modules #
 The target of this project is to set up a docker platform to run and test Python3 with several data modules([Project logs](https://github.com/jiaxicheng/xc_python/blob/master/project_logs.md))
-* [x] Python data exploration: Pandas
-* [x] Python visualization: Matplotlib
-* [x] Jupyter notebook
-* [x] ipython 
+* [x] Python module Pandas (data exploration)
+* [x] Python module Matplotlib (visualization)
+* [x] ipython and Jupyter notebook
 * [x] Redis key-value caching store
 * [x] MySQL HA/failover with docker swarm
 
