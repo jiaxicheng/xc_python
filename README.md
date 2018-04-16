@@ -25,19 +25,21 @@ cd xc_python
 ```
 *Note:* in the python3 container, a user with the same username and uid as the owner of `/data/my_code` on the `host_server` are created, this is to guarantee that user can modify the files both in and out of the container.
 
-2. Using `Jupyter notebook` for testing, do the following:
-   1. from the client-side, set up the ssh-tunnel: ```
+#### Using `Jupyter notebook` for testing, do the following: ####
+2. from the client-side, set up the ssh-tunnel: 
+```
 ssh -fNL9999:localhost:9999 <user>@<host_server>
 ```
-   2. on the `host_server`, run the following and retrieve the token needed for login
+
+3. on the `host_server`, run the following and retrieve the token needed for login
 ```
 docker exec -it xc_python_python3_1 jupyter notebook list
 ```
-   3. on the client-side, open the browser with the link 'http://localhost:9999'
+4. on the client-side, open the browser with the link 'http://localhost:9999'
       login with the token shown above
 
-3. Using `xauth` for testing, you can run GUI program on the command lines, i.e. ipython. do the following:
-   1. set up the firewall between the `host_server` and the docker bridge0, essential for X-forward to reach docker containers
+#### Using `xauth` for testing, you can run GUI program on the command lines, i.e. ipython. do the following: ####
+2. set up the firewall between the `host_server` and the docker bridge0, essential for X-forward to reach docker containers
 ```
 firewall-cmd  --zone=public --add-rich-rule=' rule family="ipv4" destination address="172.17.0.0/16" port protocol="tcp" port="6010-6020" accept
 firewall-cmd --reload
@@ -47,16 +49,19 @@ firewall-cmd  --zone=public --permanent --add-rich-rule=' rule family="ipv4" des
 
 ```
    check the file [xauth.init.sh](https://github.com/jiaxicheng/xc_python/blob/master/xauth.init.sh) for more details.
-   2. set up `sshd` to allow non-localhost X11Forward: vi /etc/ssh/sshd_conf and adjust `X11UseLocalhost` from `yes` to `no` and then run:
+
+3. set up `sshd` to allow non-localhost X11Forward: vi /etc/ssh/sshd_conf and adjust `X11UseLocalhost` from `yes` to `no` and then run:
 ```
 systemctl reload sshd
 ```
-   3. add the following lines into your ~/.bashrc, where PROJECT_ROOT is where the git have saved the project files.
+
+4. add the following lines into your ~/.bashrc, where PROJECT_ROOT is where the git have saved the project files.
 ```
 PROJECT_ROOT=$HOME/xc_python
 [[ -f $PROJECT_ROOT/xauth.init.sh ]] && $PROJECT_ROOT/xauth.init.sh
 ```
-   4. logout and then login with the following command:
+
+5. logout and then login with the following command:
 ```
 ssh -X <user>@<host_server>
 docker exec -it xc_python_python3_1 bash
