@@ -35,23 +35,23 @@ groupadd -f dockerroot && usermod -a -G dockerroot <user> && chown :dockerroot /
 + Other softwares: firewalld, git, curl
 
 ### Installation: ###
-1. Download the package on `host_server` and run the docker services: 
+1. Download the package on host-server and run the docker services: 
 ```
 git clone https://github.com/jiaxicheng/xc_python
 mkdir -p ~/my_code
 cd xc_python
 ./service_xc_python.sh  -d ~/my_code up
 ```
-**Note:** in the python3 container, a user with the same username and uid as the owner of `/data/my_code` on the `host_server` are created, this is to guarantee that user can modify the files both in and out of the container.
+**Note:** in the python3 container, a user with the same username and uid as the owner of `~/my_code` on the host-server are created, this is to guarantee that user can modify the files both in and out of the container. Also `~/my_code` can be replaced by any existing folders.
 
 ---
 #### Using Jupyter notebook for testing, do the following: ####
 2. From the client-side, set up the ssh-tunnel: 
 ```
-ssh -fNL9999:localhost:9999 <user>@<host_server>
+ssh -fNL9999:localhost:9999 <user>@<host-server>
 ```
 
-3. On the `host_server`, run the following and retrieve the token needed for login
+3. On the host-server, run the following and retrieve the token needed for login
 ```
 docker exec -it xc_python_python3_1 jupyter notebook list
 ```
@@ -62,7 +62,7 @@ docker exec -it xc_python_python3_1 jupyter notebook list
 
 ---
 #### Using xauth for testing (i.e. displaying plots directly with ipython) do the following: ####
-2. Set up the firewall between the `host_server` and the docker bridge0, it's essential for X11Forward to reach docker containers. Make sure the above rule is added to the **default zone** even if no interface is attached to this zone.
+2. Set up the firewall between the host-server and the docker bridge0, it's essential for X11Forward to reach docker containers. Make sure the above rule is added to the **default zone** even if no interface is attached to this zone.
 ```
 sudo firewall-cmd --get-default-zone
 sudo firewall-cmd  --zone=<default-zone> --add-rich-rule=' rule family="ipv4" destination address="172.17.0.0/16" port protocol="tcp" port="6010-6020" accept'
@@ -88,7 +88,7 @@ PROJECT_ROOT=$HOME/xc_python
 
 5. Logout and then login with the following command:
 ```
-ssh -X <user>@<host_server>
+ssh -X <user>@<host-server>
 docker exec -it xc_python_python3_1 bash
 # under container, run the following test
 shared> python ~/gui-test.py
