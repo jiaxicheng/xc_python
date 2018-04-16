@@ -57,7 +57,7 @@ cd "$PROJECT_ROOT"
 
 # If DISPLAY is empty, the xauth should be executed at each shell login.
 # This happens when the service is started on a docker host w/o X-win
-[[ -z $DISPLAY ]] && exit
+[[ -z $DISPLAY ]] && { echo "no X:display available"; exit; }
 
 # if DISPLAY is using XSOCK, then use XSOCK
 # else container :display based on the docker0 IP
