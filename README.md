@@ -17,7 +17,8 @@ yum install xauth
 ```
 
 ### Installation: ###
-1. download the package on `host_server` and run the docker services: ```
+1. download the package on `host_server` and run the docker services: 
+```
 git clone https://github.com/jiaxicheng/xc_python
 mkdir -p /data/my_code
 cd xc_python
