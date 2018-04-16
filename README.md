@@ -66,7 +66,7 @@ docker exec -it xc_python_python3_1 jupyter notebook list
 ```
 sudo firewall-cmd --get-default-zone
 sudo firewall-cmd  --zone=<default-zone> --add-rich-rule=' rule family="ipv4" destination address="172.17.0.0/16" port protocol="tcp" port="6010-6020" accept'
-
+```
 **Note:**
 + Run the 2nd command with an extra option `--permanent` to make the rule survive the system reboot
 + For more details, please check the file [xauth.init.sh](https://github.com/jiaxicheng/xc_python/blob/master/xauth.init.sh).
