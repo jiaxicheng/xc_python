@@ -48,7 +48,7 @@ firewall-cmd --reload
 firewall-cmd  --zone=public --permanent --add-rich-rule=' rule family="ipv4" destination address="172.17.0.0/16" port protocol="tcp" port="6010-6020" accept
 
 ```
-   2. set up `sshd` to allow non-localhost X11Forward: vi /etc/ssh/sshd_conf and adjust `X11UseLocalhost` from `yes` to *no* and then run:
+   2. set up `sshd` to allow non-localhost X11Forward: vi /etc/ssh/sshd_conf and adjust `X11UseLocalhost` from `yes` to `no` and then run:
 ```
 systemctl reload sshd
 ```
