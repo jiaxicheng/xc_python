@@ -23,7 +23,7 @@ mkdir -p /data/my_code
 cd xc_python
 ./service_xc_python.sh  -d /data/my_code up
 ```
-*Note:* in the python3 container, a user with the same username and uid as the owner of `/data/my_code` on the `host_server` are created, this is to guarantee that user can modify the files both in and out of the container.
+**Note:** in the python3 container, a user with the same username and uid as the owner of `/data/my_code` on the `host_server` are created, this is to guarantee that user can modify the files both in and out of the container.
 
 ---
 #### Using `Jupyter notebook` for testing, do the following: ####
@@ -71,6 +71,6 @@ docker exec -it xc_python_python3_1 bash
 shared> python ~/gui-test.py
 shared> exit
 ``` 
-*Note*: make sure your login user can run the docker, for example, in the group names 'dockerroot' or 'docker'. check the permission of the file `/run/docker.socket`
+**Note:** make sure your login user can run the docker, for example, in the group names 'dockerroot' or 'docker'. check the permission of the file `/run/docker.socket`
 
 
