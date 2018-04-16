@@ -26,15 +26,16 @@ while getopts "hd:" opt; do
 done
 shift $((OPTIND-1))
 
-[[ -d "$SHARED" ]] || { echo "the folder '$SHARED' does not exist"; exit 1; }
-
 # action must be one of the pre-defined OPTS
 # export environments when build and run the applications
 [[ $1 =~ ^$regex$ ]] || { echo "$USAGE"; exit; }
 
 if [[ $1 =~ ^(up|build) ]]; then
     # SHARED folder supplied by -d argument or default to '/home/xicheng/my_code/python'
+    [[ -d "$SHARED" ]] || { echo "the folder '$SHARED' does not exist"; exit 1; }
     export SHARED
+
+
 
     # set username, user_uid and user_gid the same as the owner of the SHARED folder
     export USER=$(stat -c "%U" "$SHARED")
