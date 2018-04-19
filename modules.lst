@@ -1,13 +1,19 @@
+# interactive debugging tools
 ipython
-redis
+jupyter
+# data explore and visulize
 pandas
 matplotlib
 scipy
-PyYAML
-SQLAlchemy
+seaborn
+# general data stores
 mysql-connector==2.1.6
-jupyter
-# required to pd.read_excel()
+redis
+PyYAML
+# below required to pd.read_excel()
 xlrd
 # module to retrieve yahoo finance data
 fix_yahoo_finance
+# to run pd.read_sql()
+SQLAlchemy
+pymysql
