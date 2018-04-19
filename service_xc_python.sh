@@ -35,8 +35,6 @@ if [[ $1 =~ ^(up|build) ]]; then
     [[ -d "$SHARED" ]] || { echo "the folder '$SHARED' does not exist"; exit 1; }
     export SHARED
 
-
-
     # set username, user_uid and user_gid the same as the owner of the SHARED folder
     export USER=$(stat -c "%U" "$SHARED")
     export USER_UID=$(stat -c "%u" "$SHARED")
