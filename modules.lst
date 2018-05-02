@@ -17,3 +17,7 @@ fix_yahoo_finance
 # to run pd.read_sql()
 SQLAlchemy
 pymysql
+# Pandas remote data Access
+pandas-datareader 
+# for parquet files
+pyarrow
