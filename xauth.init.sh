@@ -54,14 +54,13 @@ Notes:
 
 DOC
 
+# If DISPLAY is empty, then XAUTH should be skipped
+# If you want to run the GUI program, relogin using ssh with '-X' or '-Y' flag
+[[ -z $DISPLAY ]] &&  exit; 
+
 ## get and cd to the project root-folder
 PROJECT_ROOT=$(cd ${0%/*}; pwd -P)
 cd "$PROJECT_ROOT"
-
-# If DISPLAY is empty, the xauth should be executed at each shell login.
-# This happens when the service is started on a docker host w/o X-win
-#[[ -z $DISPLAY ]] && { echo "no X:display available"; exit; }
-[[ -z $DISPLAY ]] &&  exit; 
 
 # if DISPLAY is using XSOCK, then use XSOCK
 # else container :display based on the docker0 IP
