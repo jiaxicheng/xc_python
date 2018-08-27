@@ -2,7 +2,7 @@ version: '3.2'
 
 services:
   python3: 
-    image: xc_python3:master
+    image: 'xc_python3:master'
     build: 
       context: ./
       dockerfile: Dockerfile-master
@@ -10,7 +10,7 @@ services:
         user: ${USER:-xicheng}
         user_uid: ${USER_UID:-1003}
         user_gid: ${USER_GID:-1003}
-    hostname: xc_py3
+    hostname: amityville
     networks:
       xcnet:
     ports:
@@ -25,7 +25,7 @@ services:
       - "notebook_dir=/shared"
     restart: always
   redis:
-    image: redis:4
+    image: 'redis:4'
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "xc_redis_data:/data"
@@ -35,10 +35,11 @@ services:
     restart: always
     command: [ "redis-server", "/usr/local/etc/redis.conf" ]
   mysql:
-    image: xc_mysql:5.7
+    image: 'xc_mysql:5.7'
     build:
       context: ./
       dockerfile: Dockerfile-mysql
+    hostname: xc_mysql
     env_file:
       - ./mysql.env
     volumes:
@@ -49,8 +50,22 @@ services:
     networks:
       xcnet:
     restart: always
+  mongo:
+    image: 'mongo:3.4'
+    hostname: elmont
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "xc_mongo_data:/data/db"
+      - "./mongod_config.yml:/data/configdb/mongod.yml:z"
+    networks:
+      xcnet:
+    restart: always
+    ports:
+      - "127.0.0.1:27017:27017"
+    command: [ "/usr/bin/mongod", "-f", "/data/configdb/mongod.yml" ]
 networks:
   xcnet:
 volumes:
   xc_mysql_data:
   xc_redis_data:
+  xc_mongo_data:
