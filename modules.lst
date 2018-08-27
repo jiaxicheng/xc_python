@@ -21,3 +21,12 @@ pymysql
 pandas-datareader 
 # for parquet files
 pyarrow
+# for performance
+numexpr
+# for mongodb
+pymongo==3.4.0
+# for performance
+dask[complete]
+# other modules
+ngram
+sklearn
