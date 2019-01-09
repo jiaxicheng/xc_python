@@ -25,8 +25,6 @@ pyarrow
 numexpr
 # for mongodb
 pymongo==3.4.0
-# for performance
-dask[complete]
 # other modules
 ngram
 sklearn
