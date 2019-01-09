@@ -21,6 +21,7 @@ services:
       - "/tmp/.X11-unix:/tmp/.X11-unix:z"
       - "${SHARED:-./}:/shared:z"
       - "./home:/home/${USER}:z"
+      - "/data/hdfs/spark-latest:/data/spark:ro"
     environment:
       - "notebook_dir=/shared"
     restart: always
