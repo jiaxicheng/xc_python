@@ -8,3 +8,5 @@ jq
 # tk-dev for matplotlib.pyplot with GUI support
 tk-dev
 xauth
+# for pyspark
+openjdk-8-jre-headless
