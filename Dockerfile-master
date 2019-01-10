@@ -1,5 +1,5 @@
 # the base image
-FROM python:3.6-slim-jessie
+FROM python:3.7-slim-stretch
 
 # node user/uid/gid must matches the host system in order to properly access shared folder in container.
 ARG user=xicheng
@@ -15,15 +15,8 @@ COPY packages.lst /root/
 
 # install packages based on the above list
 RUN set -ex; apt-get update && \
+    mkdir -p /usr/share/man/man1 && \
     sed '/^ *#/d' /root/packages.lst | xargs apt-get install -y --no-install-recommends --no-install-suggests  && \
-    rm -rf /var/lib/apt/lists/*
-
-# install JAVA-8 on Debian Jessie
-# REF: https://github.com/puckel/docker-airflow/issues/182
-RUN mkdir -p /usr/share/man/man1 && \
-    echo "deb http://http.debian.net/debian jessie-backports main" > /etc/apt/sources.list.d/backports.list && \
-    apt-get update -y && \
-    apt-get install -t jessie-backports openjdk-8-jre-headless -y && \
     rm -rf /var/lib/apt/lists/*
 
 # upload a list of Python modules
