@@ -28,3 +28,8 @@ pymongo==3.4.0
 # other modules
 ngram
 sklearn
+# pandas to parse table from html
+html5lib
+BeautifulSoup4
+# excel
+xlwt
