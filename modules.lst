@@ -7,13 +7,13 @@ matplotlib
 scipy
 seaborn
 # general data stores
-mysql-connector==2.1.6
+#mysql-connector==2.1.6
 redis
 PyYAML
 # below required to pd.read_excel()
 xlrd
 # module to retrieve yahoo finance data
-fix_yahoo_finance
+#fix_yahoo_finance
 # to run pd.read_sql()
 SQLAlchemy
 pymysql
@@ -33,3 +33,12 @@ html5lib
 BeautifulSoup4
 # excel
 xlwt
+# data
+pyproj
+nltk
+pyjarowinkler
+graphframes
+spark-nlp==2.5.5
+networkx
+PyDictionary
+
